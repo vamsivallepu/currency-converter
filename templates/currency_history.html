@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Currency History</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="currency_name">Currency Name : </label>
+    <input type="text" id="currency_name" name="currency_name" required>
+    <button type="submit">submit</button>
+</form>
+
+{% if history %}
+<table>
+    <thead>
+        <tr>
+            <th>Date Recorded</th>
+            <th>Price (USD)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in history %}
+        <tr>
+            <td>{{item.date_recorded}}</td>
+            <td>{{item.price_wrt_usd}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

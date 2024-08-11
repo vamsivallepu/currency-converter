@@ -1,0 +1,22 @@
+
+{%extends 'base.html' %}
+
+{% block content %}
+
+<h2>Convert Currency</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="from_currency">From Currency : </label>
+    <input type="text" name="from_currency" required>
+    <label for="to_currency">To Currency : </label>
+    <input type="text" name="to_currency" required>
+    <label for="amount">Amount : </label>
+    <input type="number" name="amount" step="0.01" required>
+
+    <button type="submit">Convert</button>
+</form>
+
+{% if converted_amount is not None %}
+<p>Converted Amount : {{converted_amount}}</p>
+{% endif %}
+{% endblock %}

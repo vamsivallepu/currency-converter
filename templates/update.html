@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Update Currency</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="currency_name">Currency Name : </label>
+    <input type="text" name="currency_name" required>
+    <label for="new_value"> New Value (USD) : </label>
+    <input type="number" name="new_value" step="0.01" required>
+    <button type="submit">Update</button>
+</form>
+{% if success %}
+<div class="message success">
+    <p>Currency value updated successfully</p>
+</div>
+{% elif error %}
+<div class="message error">
+    <p>{{error}}</p>
+</div>
+{% endif %}
+
+{% endblock %}

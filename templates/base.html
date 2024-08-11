@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Currency Exchange</title>
+</head>
+<body>
+    <header>
+        <h1>Currency Exchange</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'currency_list' %}">Currencies</a></li>
+                <li><a href="{% url 'currency_history' %}">History</a></li>
+                <li><a href="{% url 'convert_currency' %}">Convert</a></li>
+                <li><a href="{% url 'update_currency' %}">Update</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!-- space to insert content -->
+        {% endblock %}
+    </main>
+</body>
+</html>
