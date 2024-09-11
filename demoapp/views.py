@@ -14,6 +14,12 @@ from rest_framework.views import APIView
 from rest_framework import mixins, generics
 from .permissions import IsAdminOrReadOnly
 
+# from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from .throttling import BooksViewThrottle, BookDetailedViewThrottle
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+from .pagination import BooksViewPageNo, BooksViewLimitOffset, BooksViewCursor
+
 # Create your views here.
 # python manage.py createsuperuser
 
@@ -22,14 +28,42 @@ from .permissions import IsAdminOrReadOnly
 #     serializer_class = BookSerializer
 
 class BooksView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    # throttle_classes = [BooksViewThrottle]
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    pagination_class = BooksViewCursor
+    # filter_backends = [filters.OrderingFilter]
+    # ordering_fields = ['price']
+
+class BookDetailedView(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = [IsAuthenticated]
+    # throttle_classes = [BookDetailedViewThrottle]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-class BookDetailedView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
+# class BookAuthorView(generics.ListAPIView):
+#     serializer_class = BookSerializer 
+#     #url/book/def
+#     # def get_queryset(self):
+#     #     # 
+#     #     author_url = self.kwargs['author']
+#     #     return Book.objects.filter(author=author_url)
+#     # url/book?author=......&title=......
+#     def get_queryset(self):
+#         queryset = Book.objects.all()
+#         author_url = self.request.query_params.get('author')
+#         title_url = self.request.query_params.get('title')
+
+#         if author_url is not None and title_url is not None:
+#             queryset = queryset.filter(author=author_url)
+#             queryset = queryset.filter(title=title_url)
+#         elif author_url is not None:
+#             queryset = queryset.filter(author=author_url)
+#         elif title_url is not None:
+#             queryset = queryset.filter(title=title_url)
+#         return queryset
+
     
 # class BooksView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 #     queryset = Book.objects.all()
