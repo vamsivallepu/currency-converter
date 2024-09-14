@@ -24,10 +24,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-paws-e#&taptvd4@=dzru$7*qweppt64+ejou*r#agfh@47b@d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
 
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',  # for localhost (REACT Default)
+#     'http://192.168.0.105:3000',  # for network 
+#     'http://localhost:8000',  # for localhost (Developlemt)
+#     'http://192.168.0.105:8000',  # for network (Development)
+# )
+
+# CSRF_TRUSTED_ORIGINS = [
+#     'http://localhost:3000',  # for localhost (REACT Default)
+#     'http://192.168.0.105:3000',  # for network 
+#     'http://localhost:8000',  # for localhost (Developlemt)
+#     'http://192.168.0.105:8000',  # for network (Development)
+# ]
 
 # Application definition
 
@@ -44,12 +59,15 @@ INSTALLED_APPS = [
     'userapp', 
     'rest_framework.authtoken',
     'django_filters',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -121,6 +139,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # print(STATICFILES_DIRS)
